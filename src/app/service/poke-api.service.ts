@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 // Observable
 import { Observable } from 'rxjs';
-import { tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,22 @@ export class PokeApiService {
 
   get apiListAllPokemons():Observable<any>{
     return this.http.get<any>(this.url).pipe(
-      tap(res => res),
+      tap( res => res ),
       tap( res => {
-        console.log(res)
+        res.results.map( (resPokemons: any) => {
+
+          this.apiGetPokemon(resPokemons.url).subscribe(
+            res => resPokemons.status = res
+          );
+        })
       })
     )
+  }
+  public apiGetPokemon( url: string ):Observable<any>{
+    return this.http.get<any>( url ).pipe(
+        map(
+          res =>res 
+        )
+      )
   }
 }
