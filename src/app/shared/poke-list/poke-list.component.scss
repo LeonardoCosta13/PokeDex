@@ -1,8 +1,8 @@
 @import '../../../config-scss/renm-calc.scss';
 
-
-$padding: rem-calc(20);
-:host{
+:host {
+    $padding: rem-calc(20);
+    .listagem{
 
     display: flex;
     justify-content: space-between;
@@ -73,5 +73,6 @@ $padding: rem-calc(20);
                 width: rem-calc(65);
             }
         }
+    }
     }
 }
